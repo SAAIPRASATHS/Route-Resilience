@@ -166,6 +166,11 @@ export function MapCanvas() {
           )
         )
         .addTo(map);
+        
+      // Ensure map resizes to container correctly
+      setTimeout(() => {
+        map.resize();
+      }, 300);
     });
 
     map.on('move', () => {
@@ -174,8 +179,19 @@ export function MapCanvas() {
       setZoom(Math.round(map.getZoom() * 10) / 10);
     });
 
+    // Resize observer to ensure map always fills container
+    const resizeObserver = new ResizeObserver(() => {
+      map.resize();
+    });
+    if (mapContainer.current) {
+      resizeObserver.observe(mapContainer.current);
+    }
+
     mapRef.current = map;
-    return () => map.remove();
+    return () => {
+      resizeObserver.disconnect();
+      map.remove();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -244,7 +260,7 @@ export function MapCanvas() {
 
   return (
     <div style={{ position: 'relative', flex: 1, overflow: 'hidden' }}>
-      <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
+      <div ref={mapContainer} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
 
       {/* Map style toggle */}
       <div className="map-controls">
