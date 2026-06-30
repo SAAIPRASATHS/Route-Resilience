@@ -98,6 +98,7 @@ html, body, #root {
 .header {
   height: var(--header-h);
   background: var(--bg-topbar);
+  border-top: 6px solid #233142; /* Thick dark top border from design */
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
