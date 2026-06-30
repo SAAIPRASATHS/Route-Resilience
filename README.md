@@ -1,169 +1,289 @@
-# Route Resilience AI 🛰️🛣️
+# Route Resilience AI
 
-> **AI-Powered Occlusion-Robust Road Intelligence & Emergency Navigation System**  
-> Focused on **Coimbatore, Tamil Nadu, India**
+## AI-Powered Occlusion-Robust Road Intelligence & Emergency Routing System
 
----
-
-## What This System Does
-
-1. **Fetches** real-time satellite imagery of Coimbatore via Google Earth Engine (Sentinel-2, 10m resolution)
-2. **Extracts** roads from imagery using a SegFormer model trained to work even under cloud/shadow occlusion
-3. **Builds** a routable road graph (NetworkX + PostGIS)
-4. **Routes** emergency vehicles through Dijkstra / A* / Yen's K-Shortest Paths
-5. **Simulates** flood/disaster scenarios (remove blocked roads → find alternate routes)
-6. **Identifies** the top-20 most critical road segments (betweenness centrality)
-7. **Visualises** everything on an interactive MapLibre GL dashboard
-8. **Answers** natural language queries via a LangGraph AI agent
+Route Resilience AI is an end-to-end intelligent geospatial platform that transforms satellite imagery into actionable road intelligence for disaster response and urban mobility. The system combines Deep Learning, Remote Sensing, Graph Theory, GIS, and AI Agents to generate resilient routes, identify critical infrastructure, and support emergency decision-making.
 
 ---
 
-## Target Area — Coimbatore
+## Problem Statement
 
-| Property | Value |
-|---|---|
-| City | Coimbatore, Tamil Nadu |
-| Center | 11.0168°N, 76.9558°E |
-| Default Radius | 15 km |
-| Bounding Box | `[76.85, 10.90, 77.10, 11.15]` |
-| Satellite | Sentinel-2 SR (10m, via GEE) |
+Conventional navigation systems depend on historical maps, GPS traces, and user-reported incidents. During disasters such as floods, landslides, cyclones, and earthquakes, these systems become unreliable because they cannot accurately determine the current state of road infrastructure.
+
+Satellite imagery provides the latest view of the affected region, but extracting continuous road networks is challenging due to:
+
+- Tree canopy occlusions
+- Building shadows
+- Cloud cover
+- Smoke and haze
+- Broken road connectivity
+
+These limitations delay emergency response and reduce the effectiveness of rescue operations during the critical "Golden Hour."
 
 ---
 
-## Quick Start
+## Proposed Solution
 
-### 1. Clone & Install
+Route Resilience AI provides an end-to-end intelligent pipeline that:
 
-```bash
-git clone https://github.com/your-username/route-resilience-ai.git
-cd route-resilience-ai
+1. Retrieves recent satellite imagery using Google Earth Engine.
+2. Extracts roads using an occlusion-aware SegFormer model.
+3. Reconstructs hidden road connectivity.
+4. Converts road masks into a connected graph.
+5. Detects critical roads and bottlenecks.
+6. Simulates disaster scenarios.
+7. Computes resilient emergency routes.
+8. Provides an interactive decision support dashboard.
 
-python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # Linux/Mac
+---
 
-pip install -r requirements.txt
+## Key Features
+
+### AI-Based Road Extraction
+
+- Occlusion-aware SegFormer-B2 architecture
+- Robust road detection under trees, clouds, and shadows
+- High-resolution semantic segmentation
+
+### Intelligent Graph Generation
+
+- Road skeletonization
+- Automatic node and edge generation
+- Connected road network construction
+
+### Graph Analytics
+
+- Betweenness Centrality
+- Closeness Centrality
+- Connected Components
+- Critical Road Identification
+- Bottleneck Detection
+- Infrastructure Resilience Analysis
+
+### Disaster Simulation
+
+- Flood Simulation
+- Landslide Simulation
+- Road Closure Analysis
+- Bridge Failure Simulation
+- Dynamic Route Recalculation
+
+### Emergency Routing
+
+- Ambulance Navigation
+- Fire Service Routing
+- Police Response Routing
+- Alternate Route Recommendation
+
+### Decision Support
+
+- Critical Infrastructure Monitoring
+- Real-time Risk Assessment
+- Emergency Route Recommendation
+- Interactive Urban Intelligence Dashboard
+
+---
+
+## System Architecture
+
+```text
+Google Earth Engine
+        │
+        ▼
+Satellite Imagery
+        │
+        ▼
+Preprocessing
+        │
+        ▼
+SegFormer Road Extraction
+        │
+        ▼
+Road Mask Generation
+        │
+        ▼
+Skeletonization
+        │
+        ▼
+Graph Construction
+(NetworkX)
+        │
+        ▼
+Criticality Analysis
+        │
+        ▼
+Disaster Simulation
+        │
+        ▼
+Route Optimization
+(A*, Dijkstra)
+        │
+        ▼
+FastAPI Backend
+        │
+        ▼
+React Dashboard
 ```
 
-### 2. Configure Environment
+---
 
-```bash
-cp .env.example .env
-# Edit .env — set your GEE service account path / OAuth
-```
+## Technology Stack
 
-### 3. Authenticate Google Earth Engine
+| Layer | Technologies |
+|--------|--------------|
+| AI & Machine Learning | PyTorch, SegFormer-B2 |
+| Backend | FastAPI, Python |
+| Frontend | React, TypeScript, Vite |
+| GIS | Google Earth Engine, Rasterio, GeoJSON |
+| Graph Analytics | NetworkX |
+| Database | PostgreSQL, PostGIS |
+| Maps | MapLibre GL |
+| Real-Time Communication | WebSockets |
+| AI Agent | LangGraph |
 
-```bash
-# One-time OAuth (local dev):
-earthengine authenticate
+---
 
-# OR service account:
-# Set GEE_SERVICE_ACCOUNT_EMAIL + GEE_SERVICE_ACCOUNT_KEY_PATH in .env
-```
+## Workflow
 
-### 4. Run the Backend
-
-```bash
-python backend/main.py
-# API available at http://localhost:8000
-# Docs at http://localhost:8000/docs
-```
-
-### 5. Run the Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-# Dashboard at http://localhost:5173
+```text
+Satellite Imagery
+        │
+        ▼
+Road Extraction
+        │
+        ▼
+Road Graph Generation
+        │
+        ▼
+Criticality Analysis
+        │
+        ▼
+Disaster Simulation
+        │
+        ▼
+Emergency Route Planning
+        │
+        ▼
+Interactive Dashboard
 ```
 
 ---
 
 ## Project Structure
 
-```
-route-resilience-ai/
-├── backend/                  # FastAPI backend
-│   ├── api/routes/           # REST endpoints
-│   ├── gee/                  # Google Earth Engine integration
-│   ├── services/             # Business logic layer
-│   ├── database/             # SQLAlchemy models (SQLite dev)
-│   ├── websocket/            # WebSocket real-time manager
-│   ├── agent/                # LangGraph AI agent
-│   └── main.py
+```text
+Route-Resilience-AI
 │
-├── ai/                       # AI pipeline
-│   ├── datasets/             # SpaceNet download scripts
-│   ├── preprocessing/        # GeoTIFF → chips
-│   ├── augmentation/         # Albumentations config
-│   ├── models/               # SegFormer architecture
-│   ├── training/             # Colab training notebook ⭐
-│   ├── inference/            # Sliding-window predictor
-│   └── weights/              # Model checkpoints (gitignored)
+├── ai
+│   ├── datasets
+│   ├── preprocessing
+│   ├── augmentation
+│   ├── models
+│   ├── training
+│   ├── inference
+│   └── weights
 │
-├── graph_engine/             # Road graph utilities
-│   ├── skeletonize.py
-│   ├── graph_builder.py
-│   ├── routing.py
-│   └── centrality.py
+├── backend
+│   ├── api
+│   ├── graph
+│   ├── agent
+│   ├── websocket
+│   ├── services
+│   └── database
 │
-├── frontend/                 # React + TypeScript + MapLibre GL
-│   └── src/
-│       ├── components/
-│       ├── store/
-│       └── api/
+├── frontend
 │
-└── docs/
+├── graph_engine
+│
+├── docs
+│
+├── docker
+│
+└── README.md
 ```
 
 ---
 
-## AI Training (Google Colab)
+## Innovation
 
-Open `ai/training/RoadSegmentation_Colab.ipynb` in Google Colab:
-
-1. Mount Google Drive
-2. Install dependencies (auto)
-3. Download SpaceNet Road dataset from AWS S3
-4. Run preprocessing pipeline
-5. Train SegFormer-B2 model
-6. Save weights to `/content/drive/MyDrive/reroute-ai/weights/`
-
-Then copy weights to `ai/weights/best_model.pth` locally for inference.
+- Occlusion-Robust Road Extraction
+- AI-Based Road Connectivity Recovery
+- Graph-Theoretic Criticality Analysis
+- Disaster-Aware Dynamic Routing
+- Infrastructure Resilience Scoring
+- AI-Powered Decision Support
+- End-to-End Automated Geospatial Intelligence Pipeline
 
 ---
 
-## API Endpoints
+## Future Enhancements
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/satellite` | Fetch Coimbatore satellite image |
-| POST | `/api/roads/extract` | Run SegFormer inference |
-| POST | `/api/graph/build` | Build road graph |
-| GET | `/api/graph/critical` | Top-N critical roads |
-| POST | `/api/route` | Find optimal route |
-| POST | `/api/disaster/simulate` | Simulate flood scenario |
-| GET | `/api/stats` | System statistics |
-| WS | `/ws/updates` | Real-time updates |
+- Drone Image Integration
+- Live Traffic Intelligence
+- IoT Sensor Integration
+- Predictive Road Failure Detection
+- AI Traffic Forecasting
+- Multi-Agent Emergency Coordination
+- Smart City Integration
 
 ---
 
-## Tech Stack
+## Expected Outcomes
 
-| Layer | Technology |
-|---|---|
-| Frontend | React 18 + TypeScript + MapLibre GL |
-| Backend | FastAPI + SQLAlchemy |
-| AI Model | PyTorch + SegFormer (HuggingFace) |
-| GIS | Google Earth Engine + Rasterio + GDAL |
-| Graph | NetworkX + scikit-image |
-| AI Agent | LangGraph |
-| Training | Google Colab + SpaceNet Dataset |
+- High-accuracy road extraction
+- Connected road network generation
+- Identification of critical infrastructure
+- Disaster-aware route optimization
+- Faster emergency response
+- Interactive decision support system
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/SAAIPRASATHS/Route-Resilience.git
+cd Route-Resilience
+```
+
+### Backend
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## Research References
+
+- SpaceNet Road Dataset
+- DeepGlobe Road Extraction Challenge
+- Google Earth Engine Documentation
+- SegFormer: Simple and Efficient Design for Semantic Segmentation
+- NetworkX Documentation
+- OpenStreetMap
+- ISRO Bhuvan
 
 ---
 
 ## License
 
-MIT — open for research and hackathon use.
+This project is released under the MIT License.
+
+---
+
+## Authors
+
+Developed as part of the **Route Resilience AI** project for intelligent urban mobility, disaster resilience, and emergency response.
