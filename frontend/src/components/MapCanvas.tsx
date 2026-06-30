@@ -6,35 +6,9 @@ import { useMapStore } from '../store/mapStore';
 // Coimbatore centre
 const COIMBATORE = { lng: 76.9558, lat: 11.0168 };
 
-// OSM Tile URL
-const STREET_STYLE: maplibregl.StyleSpecification = {
-  version: 8,
-  sources: {
-    osm: {
-      type: 'raster',
-      tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-      tileSize: 256,
-      attribution: '© OpenStreetMap contributors',
-    },
-  },
-  layers: [{ id: 'osm-tiles', type: 'raster', source: 'osm' }],
-};
-
-// Google Maps Satellite
-const SATELLITE_STYLE: maplibregl.StyleSpecification = {
-  version: 8,
-  sources: {
-    google: {
-      type: 'raster',
-      tiles: [
-        'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-      ],
-      tileSize: 256,
-      attribution: 'Map data © Google',
-    },
-  },
-  layers: [{ id: 'google-satellite', type: 'raster', source: 'google' }],
-};
+// Reliable external Vector Tile Styles
+const STREET_STYLE = 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
+const SATELLITE_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
 export function MapCanvas() {
   const mapContainer = useRef<HTMLDivElement>(null);
