@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import { useMapStore } from './store/mapStore';
 import { connectWebSocket, disconnectWebSocket } from './api/websocket';
 import { MapCanvas } from './components/MapCanvas';
