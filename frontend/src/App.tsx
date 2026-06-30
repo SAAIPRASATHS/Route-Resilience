@@ -11,9 +11,13 @@ import { TrainingDashboard } from './components/TrainingDashboard';
 import { AlertBar } from './components/AlertBar';
 import { RightPanel } from './components/RightPanel';
 import { AiAssistant } from './components/AiAssistant';
+import { TrafficIntelligence } from './components/TrafficIntelligence';
+import { DroneFeed } from './components/DroneFeed';
+import { PredictiveFailure } from './components/PredictiveFailure';
+import { AgentCoordination } from './components/AgentCoordination';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'map' | 'routing' | 'disaster' | 'critical' | 'ai' | 'training'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'map' | 'routing' | 'disaster' | 'critical' | 'ai' | 'training' | 'traffic' | 'drone' | 'predictive' | 'agents'>('dashboard');
   const { isLoading, loadingMessage, stats } = useMapStore();
 
   useEffect(() => {
@@ -92,6 +96,25 @@ export default function App() {
             <span>Train</span>
           </button>
           
+          <div className="icon-sidebar-spacer" style={{ height: '2px', background: 'var(--border)', margin: '8px 12px' }}></div>
+
+          <button className={`icon-sidebar-btn ${activeTab === 'traffic' ? 'active' : ''}`} onClick={() => setActiveTab('traffic')} title="Live Traffic">
+            🚦
+            <span>Traffic</span>
+          </button>
+          <button className={`icon-sidebar-btn ${activeTab === 'drone' ? 'active' : ''}`} onClick={() => setActiveTab('drone')} title="Drone Feed">
+            🚁
+            <span>Drone</span>
+          </button>
+          <button className={`icon-sidebar-btn ${activeTab === 'predictive' ? 'active' : ''}`} onClick={() => setActiveTab('predictive')} title="Predictive Risk">
+            🔮
+            <span>Predict</span>
+          </button>
+          <button className={`icon-sidebar-btn ${activeTab === 'agents' ? 'active' : ''}`} onClick={() => setActiveTab('agents')} title="Agent Coordination">
+            🤝
+            <span>Agents</span>
+          </button>
+          
           <div className="icon-sidebar-spacer"></div>
           
           <button className="icon-sidebar-btn" title="Settings">
@@ -120,6 +143,10 @@ export default function App() {
               {activeTab === 'critical' && 'Infrastructure Analysis'}
               {activeTab === 'ai' && 'AI Assistant'}
               {activeTab === 'training' && 'Model Training'}
+              {activeTab === 'traffic' && 'Live Traffic Intelligence'}
+              {activeTab === 'drone' && 'UAV Surveillance Feed'}
+              {activeTab === 'predictive' && 'Predictive Road Failure'}
+              {activeTab === 'agents' && 'Multi-Agent Coordination'}
             </h2>
             <p className="sidebar-header-subtitle">
               {activeTab === 'dashboard' && 'Real-time city analytics and metrics.'}
@@ -129,6 +156,10 @@ export default function App() {
               {activeTab === 'critical' && 'Identify choke points using graph centrality.'}
               {activeTab === 'ai' && 'Ask the system for insights and reports.'}
               {activeTab === 'training' && 'Train and evaluate the SegFormer model.'}
+              {activeTab === 'traffic' && 'Real-time urban congestion mapping.'}
+              {activeTab === 'drone' && 'Live video link for occlusion penetration.'}
+              {activeTab === 'predictive' && 'ML risk assessment for infrastructure.'}
+              {activeTab === 'agents' && 'Autonomous AI negotiation & dispatch.'}
             </p>
           </div>
 
@@ -140,6 +171,10 @@ export default function App() {
             {activeTab === 'critical' && <CriticalRoads />}
             {activeTab === 'ai' && <AiAssistant />}
             {activeTab === 'training' && <TrainingDashboard />}
+            {activeTab === 'traffic' && <TrafficIntelligence />}
+            {activeTab === 'drone' && <DroneFeed />}
+            {activeTab === 'predictive' && <PredictiveFailure />}
+            {activeTab === 'agents' && <AgentCoordination />}
           </div>
         </aside>
 
