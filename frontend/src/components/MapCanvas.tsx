@@ -20,20 +20,20 @@ const STREET_STYLE: maplibregl.StyleSpecification = {
   layers: [{ id: 'osm-tiles', type: 'raster', source: 'osm' }],
 };
 
-// ESRI World Imagery (satellite)
+// Google Maps Satellite
 const SATELLITE_STYLE: maplibregl.StyleSpecification = {
   version: 8,
   sources: {
-    esri: {
+    google: {
       type: 'raster',
       tiles: [
-        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+        'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
       ],
       tileSize: 256,
-      attribution: 'Tiles © Esri',
+      attribution: 'Map data © Google',
     },
   },
-  layers: [{ id: 'esri-satellite', type: 'raster', source: 'esri' }],
+  layers: [{ id: 'google-satellite', type: 'raster', source: 'google' }],
 };
 
 export function MapCanvas() {
