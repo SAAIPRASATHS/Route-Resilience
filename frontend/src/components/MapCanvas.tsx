@@ -12,28 +12,34 @@ const STREET_STYLE: maplibregl.StyleSpecification = {
   sources: {
     osm: {
       type: 'raster',
-      tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+      tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
       tileSize: 256,
       attribution: '© OpenStreetMap contributors',
     },
   },
-  layers: [{ id: 'osm-tiles', type: 'raster', source: 'osm' }],
+  layers: [
+    { id: 'background', type: 'background', paint: { 'background-color': '#f8f9fa' } },
+    { id: 'osm-tiles', type: 'raster', source: 'osm' }
+  ],
 };
 
-// ESRI World Imagery (satellite)
+// Google Maps Satellite
 const SATELLITE_STYLE: maplibregl.StyleSpecification = {
   version: 8,
   sources: {
-    esri: {
+    google: {
       type: 'raster',
       tiles: [
-        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
       ],
       tileSize: 256,
-      attribution: 'Tiles © Esri',
+      attribution: 'Map data © Google',
     },
   },
-  layers: [{ id: 'esri-satellite', type: 'raster', source: 'esri' }],
+  layers: [
+    { id: 'background', type: 'background', paint: { 'background-color': '#000000' } },
+    { id: 'google-satellite', type: 'raster', source: 'google' }
+  ],
 };
 
 export function MapCanvas() {
