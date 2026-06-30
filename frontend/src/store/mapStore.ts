@@ -58,6 +58,7 @@ interface MapStore {
   center: [number, number];       // [lon, lat]
   zoom: number;
   mapStyle: 'satellite' | 'street';
+  userLocation: { lat: number; lon: number; accuracy: number; heading: number | null } | null;
 
   // Data layers
   satelliteImageUrl: string | null;
@@ -81,6 +82,7 @@ interface MapStore {
   setCenter: (center: [number, number]) => void;
   setZoom: (zoom: number) => void;
   setMapStyle: (style: 'satellite' | 'street') => void;
+  setUserLocation: (loc: { lat: number; lon: number; accuracy: number; heading: number | null } | null) => void;
   setSatelliteImageUrl: (url: string | null) => void;
   setRoadGeoJSON: (geojson: GeoJSON.FeatureCollection | null) => void;
   setCriticalRoads: (roads: CriticalRoad[]) => void;
@@ -127,6 +129,7 @@ export const useMapStore = create<MapStore>((set) => ({
   center: [76.9558, 11.0168],
   zoom: 12,
   mapStyle: 'satellite',
+  userLocation: null,
 
   satelliteImageUrl: null,
   roadGeoJSON: null,
@@ -163,6 +166,7 @@ export const useMapStore = create<MapStore>((set) => ({
   setCenter: (center) => set({ center }),
   setZoom: (zoom) => set({ zoom }),
   setMapStyle: (mapStyle) => set({ mapStyle }),
+  setUserLocation: (userLocation) => set({ userLocation }),
   setSatelliteImageUrl: (satelliteImageUrl) => set({ satelliteImageUrl }),
   setRoadGeoJSON: (roadGeoJSON) => set({ roadGeoJSON }),
   setCriticalRoads: (criticalRoads) => set({ criticalRoads }),

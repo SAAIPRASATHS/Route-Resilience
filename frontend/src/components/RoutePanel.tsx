@@ -11,6 +11,7 @@ export function RoutePanel() {
     setAlgorithm,
     setLoading,
     addAlert,
+    userLocation,
   } = useMapStore();
 
   // Coimbatore landmark coords defaults
@@ -75,6 +76,21 @@ export function RoutePanel() {
               required
             />
           </div>
+          <button 
+            type="button" 
+            className="btn btn-ghost btn-sm mt-2" 
+            onClick={() => {
+              if (userLocation) {
+                setStartLat(userLocation.lat.toFixed(6));
+                setStartLon(userLocation.lon.toFixed(6));
+                addAlert('location_used', 'Start coordinates updated to your location.', 'info');
+              } else {
+                addAlert('location_error', 'Location not available. Please enable GPS on the map.', 'warning');
+              }
+            }}
+          >
+            📍 Use My Location
+          </button>
         </div>
 
         <div className="flex flex-col gap-2">

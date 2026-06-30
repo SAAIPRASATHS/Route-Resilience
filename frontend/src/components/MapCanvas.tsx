@@ -44,7 +44,7 @@ export function MapCanvas() {
   const {
     center, zoom, mapStyle,
     roadGeoJSON, criticalRoads, activeRoute, activeDisasters,
-    setCenter, setZoom, setMapStyle,
+    setCenter, setZoom, setMapStyle, setUserLocation
   } = useMapStore();
 
   // ── Init map ────────────────────────────────────────────────
@@ -61,6 +61,26 @@ export function MapCanvas() {
 
     map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
     map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left');
+    map.addControl(new maplibregl.FullscreenControl(), 'top-right');
+
+    const geolocate = new maplibregl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserLocation: true,
+      showAccuracyCircle: true
+    });
+    map.addControl(geolocate, 'bottom-right');
+
+    geolocate.on('geolocate', (e: GeolocationPosition) => {
+      setUserLocation({
+        lat: e.coords.latitude,
+        lon: e.coords.longitude,
+        accuracy: e.coords.accuracy,
+        heading: e.coords.heading
+      });
+    });
 
     map.on('load', () => {
       setMapReady(true);
