@@ -1,66 +1,67 @@
 /* ============================================================
    Route Resilience AI — Enterprise Design System
-   Professional Command Center Dashboard
+   Premium Command Center Dashboard
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ── Tokens ────────────────────────────────────────────────── */
 :root {
-  --navy:         #0B3C5D;
-  --navy-dark:    #072a42;
-  --navy-deeper:  #051e30;
-  --emerald:      #2E8B57;
-  --emerald-light:#34a065;
-  --sky:          #3B82F6;
-  --sky-light:    #60a5fa;
-  --sky-glow:     rgba(59, 130, 246, 0.2);
-
-  --bg-primary:   #F5F7FA;
-  --bg-secondary: #FFFFFF;
-  --bg-panel:     #FFFFFF;
-  --bg-card:      #FFFFFF;
-  --bg-hover:     #EEF2F7;
-  --bg-sidebar:   #0B3C5D;
-  --bg-topbar:    #FFFFFF;
-
-  --accent:       #3B82F6;
-  --accent-glow:  rgba(59, 130, 246, 0.15);
-  --accent-light: #60a5fa;
-  --success:      #2E8B57;
-  --success-light:#d1fae5;
-  --warning:      #F59E0B;
-  --warning-light:#fef3c7;
-  --danger:       #EF4444;
+  /* Premium Slate & Navy Palette */
+  --slate-50:  #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  
+  --primary-blue: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  
+  --emerald: #10b981;
+  --emerald-light: #d1fae5;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --danger: #ef4444;
   --danger-light: #fee2e2;
-  --info:         #3B82F6;
-  --info-light:   #dbeafe;
 
-  --text-primary:   #1e293b;
-  --text-secondary: #64748b;
-  --text-muted:     #94a3b8;
-  --text-inverse:   #FFFFFF;
+  --bg-primary:   var(--slate-50);
+  --bg-secondary: #ffffff;
+  --bg-topbar:    var(--slate-50);
+  --bg-sidebar:   #ffffff;
 
-  --border:       #e2e8f0;
-  --border-light: #f1f5f9;
+  --text-primary:   var(--slate-900);
+  --text-secondary: var(--slate-600);
+  --text-muted:     var(--slate-400);
 
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
-  --radius-xl:  20px;
+  --border:       var(--slate-200);
+  --border-light: var(--slate-100);
 
-  --font-sans: 'Inter', 'IBM Plex Sans', system-ui, sans-serif;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-full: 9999px;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --shadow-xs:  0 1px 2px rgba(0,0,0,0.05);
-  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:  0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
-  --shadow-lg:  0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --shadow-sm:  0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:  0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg:  0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 
-  --icon-sidebar-w: 68px;
-  --sidebar-w: 360px;
-  --header-h: 56px;
-  --right-panel-w: 280px;
+  --icon-sidebar-w: 72px;
+  --sidebar-w: 340px;
+  --header-h: 64px;
+  --right-panel-w: 300px;
+  
+  --accent: var(--primary-blue);
+  --navy: var(--slate-800);
+  --navy-dark: var(--slate-900);
 }
 
 /* ── Reset ─────────────────────────────────────────────────── */
@@ -98,49 +99,47 @@ html, body, #root {
 .header {
   height: var(--header-h);
   background: var(--bg-topbar);
-  border-top: 6px solid #233142; /* Thick dark top border from design */
+  border-top: 6px solid var(--slate-800);
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px 0 0;
+  padding: 0 24px 0 0;
   z-index: 100;
   flex-shrink: 0;
-  box-shadow: var(--shadow-xs);
 }
 
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding-left: 20px;
+  gap: 14px;
+  padding-left: 24px;
   height: 100%;
 }
 
+/* Beautiful Rounded Square Logo from Screenshot */
 .header-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, var(--navy), var(--emerald));
-  border-radius: var(--radius-sm);
+  width: 38px;
+  height: 38px;
+  background: var(--primary-blue);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  color: white;
 }
 
 .header-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--navy);
-  letter-spacing: -0.02em;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.01em;
 }
 
 .header-subtitle {
-  font-size: 11px;
-  color: var(--text-secondary);
-  margin-top: 1px;
-  font-weight: 400;
+  display: none; /* Hide subtitle for cleaner look */
 }
 
 /* Search Bar */
@@ -284,57 +283,66 @@ html, body, #root {
 /* ── Icon Sidebar (Left) ─────────────────────────────────── */
 .icon-sidebar {
   width: var(--icon-sidebar-w);
-  background: var(--bg-sidebar);
+  background: var(--slate-900);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 0;
-  gap: 4px;
+  padding: 16px 0;
+  gap: 8px;
   flex-shrink: 0;
   z-index: 60;
   overflow-y: auto;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.1);
 }
 
 .icon-sidebar-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
   border: none;
   background: transparent;
-  color: rgba(255,255,255,0.55);
+  color: var(--slate-400);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 4px;
   cursor: pointer;
-  font-size: 18px;
-  transition: all 0.15s;
+  font-size: 20px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 .icon-sidebar-btn span {
   font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.2s;
+  position: absolute;
+  bottom: 4px;
 }
 .icon-sidebar-btn:hover {
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.06);
+  color: var(--slate-200);
 }
 .icon-sidebar-btn.active {
-  background: rgba(255,255,255,0.15);
-  color: #FFFFFF;
+  background: var(--primary-blue);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  transform: translateY(-2px);
 }
 .icon-sidebar-btn.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 24px;
-  background: var(--sky-light);
-  border-radius: 0 3px 3px 0;
+  display: none; /* Removed the old side border for the new pill/button look */
+}
+
+/* Hover reveals text */
+.icon-sidebar-btn:hover span, .icon-sidebar-btn.active span {
+  opacity: 1;
+  transform: translateY(0);
+}
+.icon-sidebar-btn:hover svg, .icon-sidebar-btn.active svg {
+  transform: translateY(-6px);
 }
 
 .icon-sidebar-spacer { flex: 1; }
