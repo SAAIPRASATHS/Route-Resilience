@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useMapStore } from '../store/mapStore';
 
 export function PredictiveFailure() {
   const [analyzing, setAnalyzing] = useState(false);

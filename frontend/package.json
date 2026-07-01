@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/maplibre-gl": "^1.13.2",
+    "@types/leaflet": "^1.9.21",
+    "@types/react-leaflet": "^2.8.3",
     "axios": "^1.18.1",
-    "maplibre-gl": "^5.24.0",
+    "leaflet": "^1.9.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-leaflet": "^5.0.0",
     "socket.io-client": "^4.8.3",
     "zustand": "^5.0.14"
   },
